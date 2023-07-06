@@ -17,10 +17,11 @@ class Todo extends Model
         'user_id',
         'title',
         'description',
+        'user_email',
     ];
 
     public function User()
     {
-        return $this->hasOne(User::class, 'foreign_key');
+        return $this->belongsTo(User::class, 'foreign_key');
     }
 }

@@ -4,8 +4,10 @@ namespace App\Http\Controllers\Web;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 use Inertia\Inertia;
 use App\Domains\Todo\TodoService;
+use App\Models\User;
 
 class TodoController extends Controller
 {
@@ -36,6 +38,8 @@ class TodoController extends Controller
     {
         $userId = Auth::id();
         $todos = $this->todoService->getUserAllTodos($userId);
+        $user = User::where('id', '=', 1)->with('todos')->get();
+        Log::debug($user->toArray());
         return Inertia::render('Todo/TodoList', compact('todos'));
     }
 
