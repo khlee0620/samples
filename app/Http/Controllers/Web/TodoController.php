@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Web;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Inertia\Inertia;
 use App\Domains\Todo\TodoService;
 
@@ -33,7 +34,8 @@ class TodoController extends Controller
      */
     public function index()
     {
-        $todos = $this->todoService->getAllTodos();
+        $userId = Auth::id();
+        $todos = $this->todoService->getUserAllTodos($userId);
         return Inertia::render('Todo/TodoList', compact('todos'));
     }
 

@@ -6,8 +6,8 @@ use App\Domains\Todo\Todo;
 
 class TodoRepository
 {
-    public function getAll()
+    public function getUserAll($userId)
     {
-        return Todo::all();
+        return Todo::where('user_id', $userId)->get();
     }
 }

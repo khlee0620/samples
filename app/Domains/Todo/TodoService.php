@@ -13,8 +13,8 @@ class TodoService
         $this->todoRepository = $todoRepository;
     }
 
-    public function getAllTodos()
+    public function getUserAllTodos($userId)
     {
-        return $this->todoRepository->getAll();
+        return $this->todoRepository->getUserAll($userId);
     }
 }
