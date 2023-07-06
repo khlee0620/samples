@@ -38,8 +38,6 @@ class TodoController extends Controller
     {
         $userId = Auth::id();
         $todos = $this->todoService->getUserAllTodos($userId);
-        $user = User::where('id', '=', 1)->with('todos')->get();
-        Log::debug($user->toArray());
         return Inertia::render('Todo/TodoList', compact('todos'));
     }
 
