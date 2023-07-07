@@ -44,7 +44,8 @@ class User extends Authenticatable
         'password' => 'hashed',
     ];
 
-    // 연관관계 정의
+    // 연관관계 hasMany - 하위 테이블에 접근
+    // 유저 한명은 많은 게시물을 가질 수 있음
     public function todos()
     {
         return $this->hasMany(Todo::class);

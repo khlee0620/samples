@@ -7,7 +7,6 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
 use Inertia\Inertia;
 use App\Domains\Todo\TodoService;
-use App\Models\User;
 
 class TodoController extends Controller
 {
@@ -46,7 +45,7 @@ class TodoController extends Controller
      */
     public function create()
     {
-        //
+        return Inertia::render('Todo/TodoCreate');
     }
 
     /**
@@ -54,7 +53,7 @@ class TodoController extends Controller
      */
     public function store(Request $request)
     {
-        //
+
     }
 
     /**

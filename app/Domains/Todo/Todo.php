@@ -17,9 +17,10 @@ class Todo extends Model
         'user_id',
         'title',
         'description',
-        'user_email',
     ];
 
+    // 역연관관계 belongsTo - 상위 테이블에 접근
+    // Todo는 하나의 유저를 가질 수 있음
     public function User()
     {
         return $this->belongsTo(User::class, 'foreign_key');
