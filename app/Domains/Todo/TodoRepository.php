@@ -33,12 +33,9 @@ class TodoRepository
     // todo 수정
     public function update($request, $id)
     {
-        $validatedData = $request->validated();
         $todo = Todo::find($id);
-        $todo->title = $request->title;
-        $todo->description = $request->description;
 
-        return $todo->save();
+        return $todo->update($request->validated());
     }
 
     // todo 삭제

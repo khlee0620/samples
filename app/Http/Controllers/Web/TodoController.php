@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers\Web;
 
-use Illuminate\Http\Request;
 use App\Http\Requests\StoreTodoRequest;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Auth;
@@ -36,6 +35,7 @@ class TodoController extends Controller
      */
     public function index()
     {
+        // 접속한 유저 id를 가지고 해당하는 todo 목록 가져오기
         $userId = Auth::id();
         $todos = $this->todoService->getAllTodos($userId);
         return Inertia::render('Todo/TodoList', compact('todos'));
@@ -46,6 +46,7 @@ class TodoController extends Controller
      */
     public function create()
     {
+        // 생성 화면으로 이동
         return Inertia::render('Todo/TodoCreate');
     }
 
@@ -54,6 +55,7 @@ class TodoController extends Controller
      */
     public function store(StoreTodoRequest $request)
     {
+        // 입력한 값을 post로 보내어 todo 추가 후 리스트 화면으로 이동
         $this->todoService->postTodo($request);
 
         return Redirect::route('todos.index');
@@ -72,6 +74,7 @@ class TodoController extends Controller
      */
     public function edit(int $id)
     {
+        // 수정하려는 todo id값을 통해 todo를 가져와 수정 화면에 전달
         $todo = $this->todoService->editTodo($id);
 
         return Inertia::render('Todo/TodoUpdate', ['todo' => $todo]);
@@ -82,6 +85,7 @@ class TodoController extends Controller
      */
     public function update(StoreTodoRequest $request, int $id)
     {
+        // 입력한 값을 patch로 보내어 기존 todo를 변경한 뒤 리스트 화면으로 이동
         $this->todoService->updateTodo($request, $id);
 
         return Redirect::route('todos.index');
@@ -92,6 +96,7 @@ class TodoController extends Controller
      */
     public function destroy(int $id)
     {
+        // 선택한 todo를 제거
         $this->todoService->deleteTodo($id);
 
         return Redirect::route('todos.index');
