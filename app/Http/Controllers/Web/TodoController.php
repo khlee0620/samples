@@ -3,8 +3,9 @@
 namespace App\Http\Controllers\Web;
 
 use Illuminate\Http\Request;
+use App\Http\Requests\StoreTodoRequest;
+use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Log;
 use Inertia\Inertia;
 use App\Domains\Todo\TodoService;
 
@@ -36,7 +37,7 @@ class TodoController extends Controller
     public function index()
     {
         $userId = Auth::id();
-        $todos = $this->todoService->getUserAllTodos($userId);
+        $todos = $this->todoService->getAllTodos($userId);
         return Inertia::render('Todo/TodoList', compact('todos'));
     }
 
@@ -51,15 +52,17 @@ class TodoController extends Controller
     /**
      * 생성
      */
-    public function store(Request $request)
+    public function store(StoreTodoRequest $request)
     {
+        $this->todoService->postTodo($request);
 
+        return Redirect::route('todos.index');
     }
 
     /**
      * 상세 화면
      */
-    public function show(string $id)
+    public function show(int $id)
     {
         //
     }
@@ -67,24 +70,30 @@ class TodoController extends Controller
     /**
      * 수정 화면
      */
-    public function edit(string $id)
+    public function edit(int $id)
     {
-        //
+        $todo = $this->todoService->editTodo($id);
+
+        return Inertia::render('Todo/TodoUpdate', ['todo' => $todo]);
     }
 
     /**
      * 수정
      */
-    public function update(Request $request, string $id)
+    public function update(StoreTodoRequest $request, int $id)
     {
-        //
+        $this->todoService->updateTodo($request, $id);
+
+        return Redirect::route('todos.index');
     }
 
     /**
      * 삭제
      */
-    public function destroy(string $id)
+    public function destroy(int $id)
     {
-        //
+        $this->todoService->deleteTodo($id);
+
+        return Redirect::route('todos.index');
     }
 }

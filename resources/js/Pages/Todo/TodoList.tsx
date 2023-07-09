@@ -1,5 +1,5 @@
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
-import { Head } from "@inertiajs/react";
+import { Head, useForm } from "@inertiajs/react";
 import { PageProps, Todo } from "@/types";
 
 interface TodoListProps extends PageProps {
@@ -7,6 +7,14 @@ interface TodoListProps extends PageProps {
 }
 
 export default function TodoList({ auth, todos }: TodoListProps) {
+  const { delete: destroy } = useForm();
+
+  const handleDelete = (id: number) => {
+    if (confirm("정말 삭제하시겠습니까?")) {
+      return destroy(route("todos.destroy", id));
+    }
+  };
+
   return (
     <AuthenticatedLayout
       user={auth.user}
@@ -34,52 +42,60 @@ export default function TodoList({ auth, todos }: TodoListProps) {
                 <table className="w-full whitespace-nowrap">
                   <thead className="text-white bg-gray-600">
                     <tr className="font-bold text-left">
-                      <th className="px-6 pt-5 pb-4">#</th>
+                      <th className="px-6 pt-5 pb-4">No</th>
                       <th className="px-6 pt-5 pb-4">Title</th>
-                      <th className="px-6 pt-5 pb-4">Description</th>
+                      <th className="px-6 pt-5 pb-4">
+                        Description
+                      </th>
                       <th className="px-6 pt-5 pb-4">Action</th>
                     </tr>
                   </thead>
                   <tbody>
-                    {todos.map(({ id, title, description }) => (
+                    {todos.map(({ id, title, description }, index) => (
                       <tr key={id} className="text-black hover:bg-gray-500">
                         <td className="border-t">
                           <a
-                            href={route("todos.show", id)}
-                            className="flex items-center px-6 py-4 focus:text-indigo-700 focus:outline-none"
+                            href={route("todos.edit", id)}
+                            className="flex items-center px-6 py-4 focus:text-indigo-700 focus:outline-none min-w-[100px]"
                           >
-                            {id}
+                            {index + 1}
                           </a>
                         </td>
                         <td className="border-t">
                           <a
-                            href={route("todos.show", id)}
-                            className="flex items-center px-6 py-4 focus:text-indigo-700 focus:outline-none"
+                            href={route("todos.edit", id)}
+                            className="flex items-center px-6 py-4 focus:text-indigo-700 focus:outline-none max-w-[200px] truncate ..."
                           >
                             {title}
                           </a>
                         </td>
                         <td className="border-t">
                           <a
-                            className="flex items-center px-6 py-4"
-                            href={route("todos.show", id)}
+                            className="flex items-center px-6 py-4 max-w-[300px] truncate ..."
+                            href={route("todos.edit", id)}
                           >
                             {description}
                           </a>
                         </td>
                         <td className="border-t">
                           <a
-                            className="px-4 py-2 text-sm text-white bg-blue-500 rounded"
+                            className="px-4 py-2 mr-2 text-sm text-white bg-blue-500 rounded"
                             href={route("todos.edit", id)}
                           >
                             Edit
                           </a>
+                          <span
+                            className="px-4 py-2 text-sm text-white bg-red-500 rounded cursor-pointer"
+                            onClick={() => handleDelete(id)}
+                          >
+                            delete
+                          </span>
                         </td>
                       </tr>
                     ))}
                     {todos.length === 0 && (
                       <tr>
-                        <td className="px-6 py-4 border-t">
+                        <td className="px-6 py-4 border-t text-black">
                           No contacts found.
                         </td>
                       </tr>

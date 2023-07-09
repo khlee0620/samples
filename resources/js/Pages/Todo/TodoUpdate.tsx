@@ -1,16 +1,20 @@
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import { Head, useForm } from "@inertiajs/react";
-import { PageProps } from "@/types";
+import { PageProps, Todo } from "@/types";
 
-export default function TodoCreate({ auth }: PageProps) {
-  const { data, setData, errors, post } = useForm({
-    title: "",
-    description: "",
+interface TodoUpdateProps extends PageProps {
+  todo: Todo;
+}
+
+export default function TodoUpdate({ auth, todo }: TodoUpdateProps) {
+  const { data, setData, errors, patch } = useForm({
+    title: todo.title,
+    description: todo.description,
   });
 
   function handleSubmit(e: any) {
     e.preventDefault();
-    post(route("todos.store"));
+    patch(route("todos.update", todo.id));
   }
 
   return (
@@ -18,11 +22,11 @@ export default function TodoCreate({ auth }: PageProps) {
       user={auth.user}
       header={
         <h2 className="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
-          TodoCreate
+          TodoUpdate
         </h2>
       }
     >
-      <Head title="TodoCreate" />
+      <Head title="TodoUpdate" />
 
       <div className="py-12">
         <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
@@ -37,7 +41,7 @@ export default function TodoCreate({ auth }: PageProps) {
                     Todos
                   </a>
                   <span className="font-medium text-indigo-600"> / </span>
-                  Create
+                  Update
                 </h1>
               </div>
               <div className="max-w-6xl p-8 bg-white rounded shadow text-black">
