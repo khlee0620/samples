@@ -13,23 +13,23 @@ class TodoService
         $this->todoRepository = $todoRepository;
     }
 
-    public function getAllTodos($userId)
+    public function getAllService($userId)
     {
-        return $this->todoRepository->getAll($userId);
+        return $this->todoRepository->getTodos($userId);
     }
 
-    public function postTodo($validatedData)
+    public function createTodoService($validatedData)
     {
-        return $this->todoRepository->post($validatedData);
+        return $this->todoRepository->createTodo($validatedData);
     }
 
-    public function updateTodo($request, $id)
+    public function updateTodoService($request, $id)
     {
-        return $this->todoRepository->update($request, $id);
+        return $this->todoRepository->updateTodo($request, $id);
     }
 
-    public function deleteTodo($id)
+    public function deleteTodoService($id)
     {
-        return $this->todoRepository->delete($id);
+        return $this->todoRepository->deleteTodo($id);
     }
 }

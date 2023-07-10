@@ -7,19 +7,19 @@ use App\Domains\Todo\Todo;
 class TodoRepository
 {
     // 접속 유저 todo 목록 보기
-    public function getAll($userId)
+    public function getTodos($userId)
     {
         return Todo::where('user_id', $userId)->get();
     }
 
     // todo 작성
-    public function post($validatedData)
+    public function createTodo($validatedData)
     {
         return Todo::create($validatedData);
     }
 
     // todo 수정
-    public function update($request, $id)
+    public function updateTodo($request, $id)
     {
         $todo = Todo::find($id);
 
@@ -27,7 +27,7 @@ class TodoRepository
     }
 
     // todo 삭제
-    public function delete($id)
+    public function deleteTodo($id)
     {
         $todo = Todo::find($id);
 

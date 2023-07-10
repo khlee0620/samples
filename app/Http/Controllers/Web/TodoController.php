@@ -38,7 +38,7 @@ class TodoController extends Controller
     {
         // 접속한 유저 id를 가지고 해당하는 todo 목록 가져오기
         $userId = Auth::id();
-        $todos = $this->todoService->getAllTodos($userId);
+        $todos = $this->todoService->getAllService($userId);
         return Inertia::render('Todo/TodoList', compact('todos'));
     }
 
@@ -61,7 +61,7 @@ class TodoController extends Controller
         $validatedData['user_id'] = $userId;
 
         // 입력한 값을 post로 보내어 todo 추가 후 리스트 화면으로 이동
-        $this->todoService->postTodo($validatedData);
+        $this->todoService->createTodoService($validatedData);
 
         return Redirect::route('todos.index');
     }
@@ -88,7 +88,7 @@ class TodoController extends Controller
     public function update(StoreTodoRequest $request, int $id)
     {
         // 입력한 값을 patch로 보내어 기존 todo를 변경한 뒤 리스트 화면으로 이동
-        $this->todoService->updateTodo($request, $id);
+        $this->todoService->updateTodoService($request, $id);
 
         return Redirect::route('todos.index');
     }
@@ -99,7 +99,7 @@ class TodoController extends Controller
     public function destroy(int $id)
     {
         // 선택한 todo를 제거
-        $this->todoService->deleteTodo($id);
+        $this->todoService->deleteTodoService($id);
 
         return Redirect::route('todos.index');
     }
