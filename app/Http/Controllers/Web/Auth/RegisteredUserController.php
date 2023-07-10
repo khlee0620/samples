@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Web\Auth;
 
 use App\Http\Controllers\Web\Controller;
-use App\Models\User;
+use App\Domains\User\User;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\RedirectResponse;

@@ -4,7 +4,7 @@ namespace App\Domains\Todo;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use App\Models\User;
+use App\Domains\User\User;
 
 class Todo extends Model
 {
