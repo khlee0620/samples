@@ -19,11 +19,11 @@ class TodoRepository
     }
 
     // todo 수정
-    public function updateTodo($request, $id)
+    public function updateTodo($validatedData, $id)
     {
         $todo = Todo::find($id);
 
-        return $todo->update($request->validated());
+        return $todo->update($validatedData);
     }
 
     // todo 삭제

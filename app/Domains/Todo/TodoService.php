@@ -23,9 +23,9 @@ class TodoService
         return $this->todoRepository->createTodo($validatedData);
     }
 
-    public function updateTodoService($request, $id)
+    public function updateTodoService($validatedData, $id)
     {
-        return $this->todoRepository->updateTodo($request, $id);
+        return $this->todoRepository->updateTodo($validatedData, $id);
     }
 
     public function deleteTodoService($id)
