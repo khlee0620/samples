@@ -51,11 +51,11 @@ export default function TodoList({ auth, todos }: TodoListProps) {
                     </tr>
                   </thead>
                   <tbody>
-                    {todos.map(({ id, title, description }, index) => (
-                      <tr key={id} className="text-black hover:bg-gray-500">
+                    {todos.map((todo, index) => (
+                      <tr key={index} className="text-black hover:bg-gray-500">
                         <td className="border-t">
                           <a
-                            href={route("todos.edit", id)}
+                            href={route("todos.show", todo)}
                             className="flex items-center px-6 py-4 focus:text-indigo-700 focus:outline-none min-w-[100px]"
                           >
                             {index + 1}
@@ -63,30 +63,30 @@ export default function TodoList({ auth, todos }: TodoListProps) {
                         </td>
                         <td className="border-t">
                           <a
-                            href={route("todos.edit", id)}
+                            href={route("todos.show", todo)}
                             className="flex items-center px-6 py-4 focus:text-indigo-700 focus:outline-none max-w-[200px] truncate ..."
                           >
-                            {title}
+                            {todo.title}
                           </a>
                         </td>
                         <td className="border-t">
                           <a
                             className="flex items-center px-6 py-4 max-w-[300px] truncate ..."
-                            href={route("todos.edit", id)}
+                            href={route("todos.show", todo)}
                           >
-                            {description}
+                            {todo.description}
                           </a>
                         </td>
                         <td className="border-t">
                           <a
                             className="px-4 py-2 mr-2 text-sm text-white bg-blue-500 rounded"
-                            href={route("todos.edit", id)}
+                            href={route("todos.edit", todo.id)}
                           >
                             Edit
                           </a>
                           <span
                             className="px-4 py-2 text-sm text-white bg-red-500 rounded cursor-pointer"
-                            onClick={() => handleDelete(id)}
+                            onClick={() => handleDelete(todo.id)}
                           >
                             delete
                           </span>
@@ -96,7 +96,7 @@ export default function TodoList({ auth, todos }: TodoListProps) {
                     {todos.length === 0 && (
                       <tr>
                         <td className="px-6 py-4 border-t text-black">
-                          No contacts found.
+                          작성한 글이 없습니다.
                         </td>
                       </tr>
                     )}

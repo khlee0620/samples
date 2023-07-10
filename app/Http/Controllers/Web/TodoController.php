@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Web;
 
+use App\Domains\Todo\Todo;
 use App\Http\Requests\StoreTodoRequest;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Auth;
@@ -55,8 +56,12 @@ class TodoController extends Controller
      */
     public function store(StoreTodoRequest $request)
     {
+        $userId = Auth::id();
+        $validatedData = $request->validated();
+        $validatedData['user_id'] = $userId;
+
         // 입력한 값을 post로 보내어 todo 추가 후 리스트 화면으로 이동
-        $this->todoService->postTodo($request);
+        $this->todoService->postTodo($validatedData);
 
         return Redirect::route('todos.index');
     }
@@ -64,7 +69,7 @@ class TodoController extends Controller
     /**
      * 상세 화면
      */
-    public function show(int $id)
+    public function show()
     {
         //
     }
@@ -72,11 +77,8 @@ class TodoController extends Controller
     /**
      * 수정 화면
      */
-    public function edit(int $id)
+    public function edit(Todo $todo)
     {
-        // 수정하려는 todo id값을 통해 todo를 가져와 수정 화면에 전달
-        $todo = $this->todoService->editTodo($id);
-
         return Inertia::render('Todo/TodoUpdate', ['todo' => $todo]);
     }
 

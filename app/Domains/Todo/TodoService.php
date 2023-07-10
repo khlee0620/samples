@@ -18,14 +18,9 @@ class TodoService
         return $this->todoRepository->getAll($userId);
     }
 
-    public function postTodo($request)
+    public function postTodo($validatedData)
     {
-        return $this->todoRepository->post($request);
-    }
-
-    public function editTodo($id)
-    {
-        return $this->todoRepository->edit($id);
+        return $this->todoRepository->post($validatedData);
     }
 
     public function updateTodo($request, $id)

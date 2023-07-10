@@ -2,9 +2,7 @@
 
 namespace App\Domains\Todo;
 
-use Illuminate\Support\Facades\Auth;
 use App\Domains\Todo\Todo;
-use Illuminate\Support\Facades\Log;
 
 class TodoRepository
 {
@@ -15,19 +13,9 @@ class TodoRepository
     }
 
     // todo 작성
-    public function post($request)
+    public function post($validatedData)
     {
-        $userId = Auth::id();
-        $validatedData = $request->validated();
-        $validatedData['user_id'] = $userId;
-
         return Todo::create($validatedData);
-    }
-
-    // todo 수정 화면
-    public function edit($id)
-    {
-        return $todo = Todo::find($id);
     }
 
     // todo 수정
