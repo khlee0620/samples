@@ -1,5 +1,5 @@
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
-import { Head, useForm } from "@inertiajs/react";
+import { Head, useForm, Link } from "@inertiajs/react";
 import { PageProps, Todo } from "@/types";
 
 interface TodoListProps extends PageProps {
@@ -19,7 +19,7 @@ export default function TodoList({ auth, todos }: TodoListProps) {
     <AuthenticatedLayout
       user={auth.user}
       header={
-        <h2 className="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
+        <h2 className="text-xl font-semibold leading-tight text-gray-800 dark:text-gray-200">
           TodoList
         </h2>
       }
@@ -27,65 +27,63 @@ export default function TodoList({ auth, todos }: TodoListProps) {
       <Head title="TodoList" />
 
       <div className="py-12">
-        <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
-          <div className="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
+        <div className="mx-auto max-w-7xl sm:px-6 lg:px-8">
+          <div className="overflow-hidden bg-white shadow-sm dark:bg-gray-800 sm:rounded-lg">
             <div className="p-6 text-gray-900 dark:text-gray-100">
-              <div className="flex items-center justify-between mb-6">
-                <a
-                  className="px-6 py-2 text-white bg-green-500 rounded-md focus:outline-none"
+              <div className="mb-6 flex items-center justify-between">
+                <Link
+                  className="rounded-md bg-green-500 px-6 py-2 text-white focus:outline-none"
                   href={route("todos.create")}
                 >
                   Create Post
-                </a>
+                </Link>
               </div>
-              <div className="overflow-x-auto bg-white rounded shadow">
+              <div className="overflow-x-auto rounded bg-white shadow">
                 <table className="w-full whitespace-nowrap">
-                  <thead className="text-white bg-gray-600">
-                    <tr className="font-bold text-left">
-                      <th className="px-6 pt-5 pb-4">No</th>
-                      <th className="px-6 pt-5 pb-4">Title</th>
-                      <th className="px-6 pt-5 pb-4">
-                        Description
-                      </th>
-                      <th className="px-6 pt-5 pb-4">Action</th>
+                  <thead className="bg-gray-600 text-white">
+                    <tr className="text-left font-bold">
+                      <th className="px-6 pb-4 pt-5">No</th>
+                      <th className="px-6 pb-4 pt-5">Title</th>
+                      <th className="px-6 pb-4 pt-5">Description</th>
+                      <th className="px-6 pb-4 pt-5">Action</th>
                     </tr>
                   </thead>
                   <tbody>
                     {todos.map((todo, index) => (
                       <tr key={index} className="text-black hover:bg-gray-500">
                         <td className="border-t">
-                          <a
+                          <Link
                             href={route("todos.show", todo)}
-                            className="flex items-center px-6 py-4 focus:text-indigo-700 focus:outline-none min-w-[100px]"
+                            className="flex min-w-[100px] items-center px-6 py-4 focus:text-indigo-700 focus:outline-none"
                           >
                             {index + 1}
-                          </a>
+                          </Link>
                         </td>
                         <td className="border-t">
-                          <a
+                          <Link
                             href={route("todos.show", todo)}
-                            className="flex items-center px-6 py-4 focus:text-indigo-700 focus:outline-none max-w-[200px] truncate ..."
+                            className="... flex max-w-[200px] items-center truncate px-6 py-4 focus:text-indigo-700 focus:outline-none"
                           >
                             {todo.title}
-                          </a>
+                          </Link>
                         </td>
                         <td className="border-t">
-                          <a
-                            className="flex items-center px-6 py-4 max-w-[300px] truncate ..."
+                          <Link
+                            className="... flex max-w-[300px] items-center truncate px-6 py-4"
                             href={route("todos.show", todo)}
                           >
                             {todo.description}
-                          </a>
+                          </Link>
                         </td>
                         <td className="border-t">
-                          <a
-                            className="px-4 py-2 mr-2 text-sm text-white bg-blue-500 rounded"
+                          <Link
+                            className="mr-2 rounded bg-blue-500 px-4 py-2 text-sm text-white"
                             href={route("todos.edit", todo.id)}
                           >
                             Edit
-                          </a>
+                          </Link>
                           <span
-                            className="px-4 py-2 text-sm text-white bg-red-500 rounded cursor-pointer"
+                            className="cursor-pointer rounded bg-red-500 px-4 py-2 text-sm text-white"
                             onClick={() => handleDelete(todo.id)}
                           >
                             delete
@@ -95,7 +93,7 @@ export default function TodoList({ auth, todos }: TodoListProps) {
                     ))}
                     {todos.length === 0 && (
                       <tr>
-                        <td className="px-6 py-4 border-t text-black">
+                        <td className="border-t px-6 py-4 text-black">
                           작성한 글이 없습니다.
                         </td>
                       </tr>
