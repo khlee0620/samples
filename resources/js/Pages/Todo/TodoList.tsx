@@ -1,5 +1,6 @@
+import { Head, Link, useForm } from "@inertiajs/react";
+
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
-import { Head, useForm, Link } from "@inertiajs/react";
 import { PageProps, Todo } from "@/types";
 
 interface TodoListProps extends PageProps {

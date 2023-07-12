@@ -1,5 +1,6 @@
-import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import { Head, Link } from "@inertiajs/react";
+
+import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import { PageProps, Todo } from "@/types";
 
 interface TodoUpdateProps extends PageProps {

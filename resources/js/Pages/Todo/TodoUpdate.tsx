@@ -1,5 +1,7 @@
+import { Head, Link, useForm } from "@inertiajs/react";
+import { FormEvent } from "react";
+
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
-import { Head, useForm, Link } from "@inertiajs/react";
 import { PageProps, Todo } from "@/types";
 
 interface TodoUpdateProps extends PageProps {
@@ -12,7 +14,7 @@ export default function TodoUpdate({ auth, todo }: TodoUpdateProps) {
     description: todo.description,
   });
 
-  function handleSubmit(e: any) {
+  function handleSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
     patch(route("todos.update", todo.id));
   }

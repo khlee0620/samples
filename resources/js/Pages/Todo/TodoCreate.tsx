@@ -1,5 +1,7 @@
+import { Head, Link, useForm } from "@inertiajs/react";
+import { FormEvent } from "react";
+
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
-import { Head, useForm, Link } from "@inertiajs/react";
 import { PageProps } from "@/types";
 
 export default function TodoCreate({ auth }: PageProps) {
@@ -8,7 +10,7 @@ export default function TodoCreate({ auth }: PageProps) {
     description: "",
   });
 
-  function handleSubmit(e: any) {
+  function handleSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
     post(route("todos.store"));
   }
