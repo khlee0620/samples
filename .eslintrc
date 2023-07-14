@@ -9,7 +9,8 @@
         "project": "./tsconfig.json"
     },
     "rules": {
-        "simple-import-sort/imports": "error",
-        "simple-import-sort/exports": "error"
+        "prettier/prettier": "warn",
+        "simple-import-sort/imports": "warn",
+        "simple-import-sort/exports": "warn"
     }
 }
