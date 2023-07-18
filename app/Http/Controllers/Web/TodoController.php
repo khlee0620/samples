@@ -3,11 +3,14 @@
 namespace App\Http\Controllers\Web;
 
 use App\Domains\Todo\Todo;
+use App\Domains\Todo\TodoService;
+use App\Dtos\TodoDto;
 use App\Http\Requests\StoreTodoRequest;
+use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 use Inertia\Inertia;
-use App\Domains\Todo\TodoService;
 
 class TodoController extends Controller
 {
@@ -52,12 +55,26 @@ class TodoController extends Controller
     /**
      * 생성
      */
-    public function store(StoreTodoRequest $request)
+    // public function store(StoreTodoRequest $request)
+    // {
+    //     $userId = Auth::id();
+    //     $validatedData = $request->validated();
+    //     $validatedData['user_id'] = $userId;
+    //     $this->todoService->storeTodoService($validatedData);
+
+    //     return Redirect::route('todos.index');
+    // }
+    public function store(Request $request)
     {
-        $userId = Auth::id();
-        $validatedData = $request->validated();
-        $validatedData['user_id'] = $userId;
-        $this->todoService->createTodoService($validatedData);
+
+        // from() - laravel-data에 있는 메소드로 JSON 형태로 표시됨
+        // model에서 사용하기 위해 배열형태로 변환
+        $todoDto = TodoDto::from(
+            $request['title'],
+            $request['description'],
+        )->toArray();
+
+        $this->todoService->storeTodoService($todoDto);
 
         return Redirect::route('todos.index');
     }

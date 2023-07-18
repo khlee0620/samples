@@ -7,6 +7,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use App\Domains\Todo\Todo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class User extends Authenticatable
 {
@@ -45,7 +46,7 @@ class User extends Authenticatable
 
     // 연관관계 hasMany - 하위 테이블에 접근
     // 유저 한명은 많은 게시물을 가질 수 있음
-    public function todos()
+    public function todos(): HasMany
     {
         return $this->hasMany(Todo::class);
     }

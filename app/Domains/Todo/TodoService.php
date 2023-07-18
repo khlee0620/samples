@@ -18,18 +18,18 @@ class TodoService
         return $this->todoRepository->getTodos($userId);
     }
 
-    public function createTodoService($validatedData)
+    public function storeTodoService($validatedData)
     {
-        return $this->todoRepository->createTodo($validatedData);
+        return $this->todoRepository->storeTodoRepository($validatedData);
     }
 
     public function updateTodoService($validatedData, $id)
     {
-        return $this->todoRepository->updateTodo($validatedData, $id);
+        return $this->todoRepository->updateTodoRepository($validatedData, $id);
     }
 
     public function deleteTodoService($id)
     {
-        return $this->todoRepository->deleteTodo($id);
+        return $this->todoRepository->deleteTodoRepository($id);
     }
 }

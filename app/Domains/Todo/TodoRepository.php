@@ -13,13 +13,13 @@ class TodoRepository
     }
 
     // todo 작성
-    public function createTodo($validatedData)
+    public function storeTodoRepository($validatedData)
     {
         return Todo::create($validatedData);
     }
 
     // todo 수정
-    public function updateTodo($validatedData, $id)
+    public function updateTodoRepository($validatedData, $id)
     {
         $todo = Todo::find($id);
 
@@ -27,7 +27,7 @@ class TodoRepository
     }
 
     // todo 삭제
-    public function deleteTodo($id)
+    public function deleteTodoRepository($id)
     {
         $todo = Todo::find($id);
 
