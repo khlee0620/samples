@@ -15,17 +15,18 @@ class TodoService
 
     public function getAllService($userId)
     {
-        return $this->todoRepository->getTodos($userId);
+        // 디테일한 유효성 검사
+        return $this->todoRepository->getTodosRepository($userId);
     }
 
-    public function storeTodoService($validatedData)
+    public function storeTodoService($todoDto)
     {
-        return $this->todoRepository->storeTodoRepository($validatedData);
+        return $this->todoRepository->storeTodoRepository($todoDto);
     }
 
-    public function updateTodoService($validatedData, $id)
+    public function updateTodoService($todoDto)
     {
-        return $this->todoRepository->updateTodoRepository($validatedData, $id);
+        return $this->todoRepository->updateTodoRepository($todoDto);
     }
 
     public function deleteTodoService($id)

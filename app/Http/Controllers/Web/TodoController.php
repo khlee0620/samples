@@ -41,6 +41,7 @@ class TodoController extends Controller
     {
         $userId = Auth::id();
         $todos = $this->todoService->getAllService($userId);
+        // compact('todos')는 ['todos' => $todos]와 동일
         return Inertia::render('Todo/TodoList', compact('todos'));
     }
 
@@ -55,24 +56,11 @@ class TodoController extends Controller
     /**
      * 생성
      */
-    // public function store(StoreTodoRequest $request)
-    // {
-    //     $userId = Auth::id();
-    //     $validatedData = $request->validated();
-    //     $validatedData['user_id'] = $userId;
-    //     $this->todoService->storeTodoService($validatedData);
-
-    //     return Redirect::route('todos.index');
-    // }
-    public function store(Request $request)
+    public function store(StoreTodoRequest $request)
     {
-
-        // from() - laravel-data에 있는 메소드로 JSON 형태로 표시됨
-        // model에서 사용하기 위해 배열형태로 변환
-        $todoDto = TodoDto::from(
-            $request['title'],
-            $request['description'],
-        )->toArray();
+        $userId = Auth::id();
+        // Entity를 DTO로 변환, laravel-data의 from()을 활용하여 데이터 객체 생성
+        $todoDto = TodoDto::from($request->validated(), ['user_id' => $userId]);
 
         $this->todoService->storeTodoService($todoDto);
 
@@ -92,7 +80,7 @@ class TodoController extends Controller
      */
     public function edit(Todo $todo)
     {
-        return Inertia::render('Todo/TodoUpdate', ['todo' => $todo]);
+        return Inertia::render('Todo/TodoUpdate', compact('todo'));
     }
 
     /**
@@ -100,8 +88,12 @@ class TodoController extends Controller
      */
     public function update(StoreTodoRequest $request, int $id)
     {
-        $validatedData = $request->validated();
-        $this->todoService->updateTodoService($validatedData, $id);
+        $userId = Auth::id();
+        $todoDto = TodoDto::from($request->validated(), ['id' => $id, 'user_id' => $userId]);
+        $this->todoService->updateTodoService($todoDto);
+
+        // $validatedData = $request->validated();
+        // $this->todoService->updateTodoService($validatedData, $id);
 
         return Redirect::route('todos.index');
     }
